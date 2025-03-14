@@ -141,6 +141,9 @@ document.getElementById("submitOrder").addEventListener("click", async function(
         return;
     }
 
+    // 🔹 Show "Submitting Please Wait..." popup
+    document.getElementById("submissionPopup").style.display = "block";
+
     const customerInfo = {
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
@@ -172,6 +175,9 @@ document.getElementById("submitOrder").addEventListener("click", async function(
         totalPrice: document.getElementById("totalPriceFinal").textContent,
         timestamp: new Date()
     });
+
+    // 🔹 Hide "Submitting Please Wait..." popup
+    document.getElementById("submissionPopup").style.display = "none";
 
     alert(`✅ Order submitted successfully!`);
     resetOrder();
