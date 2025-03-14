@@ -1,0 +1,17 @@
+{
+  "name": "primecode",
+  "version": "1.0.0",
+  "description": "DTF Order Upload System",
+  "main": "Prime.js",
+  "scripts": {
+    "dev": "live-server --port=8080 --no-browser"
+  },
+  "dependencies": {
+    "firebase": "^11.4.0",
+    "firebase-admin": "^13.2.0",
+    "firebase-functions": "^6.3.2"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}

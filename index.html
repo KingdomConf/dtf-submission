@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTF Order Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side: Image Upload -->
+        <div class="upload-section">
+            <label for="imageUpload">
+                <img id="previewImage" src="uploadhere.png" alt="Click to Upload">
+            </label>
+            <input type="file" id="imageUpload" accept="image/*">
+        </div>
+
+        <!-- Right Side: Order Form -->
+        <div class="form-section">
+            <div class="row">
+                <div class="input-group">
+                    <label for="width">Width (inches):</label>
+                    <input type="number" id="width" required>
+                </div>
+                <div class="input-group">
+                    <label for="height">Height (inches):</label>
+                    <input type="number" id="height" required>
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" value="1" min="1">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="input-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group wide">
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" required>
+                </div>
+                <div class="input-group">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" required>
+                </div>
+                <div class="input-group">
+                    <label for="zip">Zip Code:</label>
+                    <input type="text" id="zip" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="delivery">Delivery Method:</label>
+                <input type="radio" id="shipping" name="delivery" value="Shipping" checked>
+                <label for="shipping">Shipping</label>
+                <input type="radio" id="pickup" name="delivery" value="Pickup">
+                <label for="pickup">Pick-Up</label>
+            </div>
+
+            <h3>Estimated Price: $<span id="totalPrice">0.00</span></h3>
+
+            <button type="button" id="addToOrder">ADD TO ORDER</button>
+        </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+        <h2>ORDER SUMMARY</h2>
+        <table>
+            <tr>
+                <th>FILE NAME</th>
+                <th>COST</th>
+                <th>QUANTITY</th>
+            </tr>
+        </table>
+
+        <h3>Estimated Total: $<span id="totalPriceFinal">0.00</span></h3>
+
+        <button type="submit" id="submitOrder">SUBMIT ORDER FOR REVIEW</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
