@@ -6,11 +6,11 @@
     <title>DTF Order Form</title>
     <link rel="stylesheet" href="prime.css">
 </head>
-<div id="submissionPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-    background: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; font-size: 18px;">
-    Submitting Please Wait...
-</div>
 <body>
+    <div id="submissionPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+        background: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; font-size: 18px;">
+        Submitting Please Wait...
+    </div>
     <div class="container">
         <!-- Left Side: Image Upload -->
         <div class="upload-section">
@@ -18,26 +18,30 @@
                 <img id="previewImage" src="uploadhere.png" alt="Click to Upload" style="cursor: pointer;">
             </label>
             <input type="file" id="imageUpload" accept="image/png" style="display: none;">
+            <div class="row">
+                <div class="input-group">
+                    <label for="width">Width (inches):</label>
+                    <input type="number" id="width" name="width" required>
+                </div>
+                <div class="input-group">
+                    <label for="height">Height (inches):</label>
+                    <input type="number" id="height" name="height" required>
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+            </div>
+            <h3>Estimated Price: $<span id="totalPrice">0.00</span></h3>
+            <button type="button" id="addToOrder">ADD IMAGE FOR REVIEW</button>
         </div>
+
+        <!-- Divider Line -->
+        <div class="divider"></div>
 
         <!-- Right Side: Order Form -->
         <div class="form-section">
             <form id="orderForm">
-                <div class="row">
-                    <div class="input-group">
-                        <label for="width">Width (inches):</label>
-                        <input type="number" id="width" name="width" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="height">Height (inches):</label>
-                        <input type="number" id="height" name="height" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1">
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="input-group">
                         <label for="firstName">First Name:</label>
@@ -58,7 +62,6 @@
                         <input type="tel" id="phone" name="phone" required>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="input-group wide">
                         <label for="street">Street:</label>
@@ -79,7 +82,6 @@
                         <input type="text" id="zip" name="zip" required>
                     </div>
                 </div>
-
                 <div class="row">
                     <label for="delivery">Delivery Method:</label>
                     <input type="radio" id="shipping" name="delivery" value="Shipping" checked>
@@ -87,37 +89,19 @@
                     <input type="radio" id="pickup" name="delivery" value="Pickup">
                     <label for="pickup">Pick-Up</label>
                 </div>
-
-                <h3>Estimated Price: $<span id="totalPrice">0.00</span></h3>
-
-                <button type="button" id="addToOrder">ADD TO ORDER</button>
             </form>
+            <h2>ORDER SUMMARY</h2>
+            <table id="orderTable">
+                <tr>
+                    <th>FILE NAME</th>
+                    <th>COST</th>
+                    <th>QUANTITY</th>
+                </tr>
+            </table>
+            <h3>Estimated Total: $<span id="totalPriceFinal">0.00</span></h3>
+            <button type="submit" id="submitOrder">SUBMIT ORDER FOR REVIEW</button>
         </div>
     </div>
-
-    <!-- Order Summary -->
-    <div class="order-summary">
-        <h2>ORDER SUMMARY</h2>
-        <table id="orderTable">
-            <tr>
-                <th>FILE NAME</th>
-                <th>COST</th>
-                <th>QUANTITY</th>
-                <th>REMOVE</th>
-            </tr>
-        </table>
-
-        <h3>Estimated Total: $<span id="totalPriceFinal">0.00</span></h3>
-        <button type="submit" id="submitOrder">SUBMIT ORDER FOR REVIEW</button>
-    </div>
-
-    <!-- Order List Display -->
-    <div id="orderList"></div>
-
-    <!-- Hidden Order ID (for tracking in Firebase) -->
-    <input type="hidden" id="orderId">
-
-    <!-- Firebase SDK -->
     <script type="module" src="prime.js"></script>
 </body>
 </html>
