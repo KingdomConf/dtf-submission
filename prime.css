@@ -11,15 +11,29 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 30px;
     max-width: 1200px;
     margin: auto;
     padding: 20px;
+    position: relative;
+}
+
+/* Vertical Divider Line */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: black;
+    transform: translateX(-50%);
 }
 
 /* Upload Section (Left Side) */
 .upload-section {
-    width: 35%;
+    width: 48%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,14 +43,14 @@ body {
 .upload-section img {
     max-width: 100%;
     max-height: 300px;
-    object-fit: contain; /* Ensures the image scales without distortion */
+    object-fit: contain;
     cursor: pointer;
     border-radius: 10px;
 }
 
 /* Form Section (Right Side) */
 .form-section {
-    width: 60%;
+    width: 48%;
     padding: 15px;
     text-align: left;
 }
@@ -96,8 +110,12 @@ button:hover {
 
 /* Order Summary */
 .order-summary {
-    margin-top: 15px;
-    overflow-x: auto; /* Ensures table remains accessible on small screens */
+    width: 48%;
+    margin-top: 20px;
+}
+
+.order-summary h2 {
+    margin-bottom: 10px;
 }
 
 table {
@@ -109,7 +127,6 @@ th, td {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
-    min-width: 100px; /* Ensures table doesn't collapse */
 }
 
 /* Make Layout Responsive */
@@ -119,11 +136,15 @@ th, td {
         align-items: center;
     }
 
-    .upload-section, .form-section {
+    .upload-section, .form-section, .order-summary {
         width: 90%;
     }
 
     .row {
         flex-direction: column;
+    }
+
+    .container::before {
+        display: none; /* Remove divider on small screens */
     }
 }
