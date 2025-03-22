@@ -38,15 +38,44 @@ document.getElementById("imageUpload").addEventListener("change", function(event
         return;
     }
     selectedFile = file;
-    
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = function() {
-        document.getElementById("width").value = (this.width / 300).toFixed(2);
-        document.getElementById("height").value = (this.height / 300).toFixed(2);
-        updatePrice();
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const buffer = e.target.result;
+        const view = new DataView(buffer);
+
+        // Search for pHYs chunk in PNG
+        let offset = 8; // Skip PNG signature
+        let dpi = 300; // Default fallback
+        while (offset < buffer.byteLength) {
+            const length = view.getUint32(offset);
+            const type = String.fromCharCode(
+                view.getUint8(offset + 4),
+                view.getUint8(offset + 5),
+                view.getUint8(offset + 6),
+                view.getUint8(offset + 7)
+            );
+            if (type === 'pHYs') {
+                const xPPM = view.getUint32(offset + 8);
+                const units = view.getUint8(offset + 16);
+                if (units === 1) { // Units in meters
+                    dpi = Math.round(xPPM * 0.0254);
+                }
+                break;
+            }
+            offset += 12 + length;
+        }
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            document.getElementById("width").value = (this.width / dpi).toFixed(2);
+            document.getElementById("height").value = (this.height / dpi).toFixed(2);
+            updatePrice();
+        };
+        document.getElementById("previewImage").src = img.src;
     };
-    document.getElementById("previewImage").src = img.src;
+    reader.readAsArrayBuffer(file);
 });
 
 // 🔹 Function to Calculate Price
