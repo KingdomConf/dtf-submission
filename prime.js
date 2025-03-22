@@ -68,9 +68,39 @@ document.getElementById("imageUpload").addEventListener("change", function(event
 
         const img = new Image();
         img.src = URL.createObjectURL(file);
-        img.onload = function() {
-            document.getElementById("width").value = (this.width / dpi).toFixed(2);
-            document.getElementById("height").value = (this.height / dpi).toFixed(2);
+        img.onload = function () {
+            const canvas = document.createElement("canvas");
+            canvas.width = this.width;
+            canvas.height = this.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+            let top = null, bottom = null, left = null, right = null;
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const alpha = imageData[(y * canvas.width + x) * 4 + 3];
+                    if (alpha !== 0) {
+                        if (top === null) top = y;
+                        bottom = y;
+                        if (left === null || x < left) left = x;
+                        if (right === null || x > right) right = x;
+                    }
+                }
+            }
+
+            if (top === null || bottom === null || left === null || right === null) {
+                alert("Could not detect content bounds.");
+                return;
+            }
+
+            const contentWidth = right - left + 1;
+            const contentHeight = bottom - top + 1;
+
+            document.getElementById("width").value = (contentWidth / dpi).toFixed(2);
+            document.getElementById("height").value = (contentHeight / dpi).toFixed(2);
             updatePrice();
         };
         document.getElementById("previewImage").src = img.src;
