@@ -66,6 +66,10 @@ document.getElementById("imageUpload").addEventListener("change", function(event
             offset += 12 + length;
         }
 
+        if (dpi < 300) {
+            alert("⚠️ Warning: This image is below 300 DPI. It may not print clearly. We recommend uploading files at 300 DPI or higher.");
+        }
+
         const img = new Image();
         img.src = URL.createObjectURL(file);
         img.onload = function () {
